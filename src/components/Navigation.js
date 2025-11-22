@@ -67,6 +67,9 @@ function Navigation() {
           <Link to="/components" onClick={closeMenu}>
             Components
           </Link>
+          <Link to="/api-test" onClick={closeMenu}>
+            API Test
+          </Link>
           <Link to="/resume" className="nav-cta" onClick={closeMenu}>
             Resume
           </Link>

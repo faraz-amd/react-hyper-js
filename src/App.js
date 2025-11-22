@@ -11,6 +11,7 @@ import Parallax from './components/Parallax';
 import Home from './pages/Home';
 import Resume from './pages/Resume';
 import Components from './pages/Components';
+import ApiTest from './pages/ApiTest';
 import { DarkModeProvider } from './hooks/useDarkMode';
 import './App.css';
 
@@ -47,6 +48,7 @@ function AppContent() {
         <Route path="/" element={<Home />} />
         <Route path="/resume" element={<Resume />} />
         <Route path="/components" element={<Components />} />
+        <Route path="/api-test" element={<ApiTest />} />
       </Routes>
       <Footer />
     </div>
