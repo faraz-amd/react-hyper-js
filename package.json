@@ -3,6 +3,20 @@
   "version": "1.0.0",
   "description": "Ahmad Faraz - Portfolio website built with React",
   "private": true,
+  "author": "Ahmad Faraz",
+  "license": "MIT",
+  "homepage": ".",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/react-hyper-js.git"
+  },
+  "keywords": [
+    "react",
+    "portfolio",
+    "test-engineer",
+    "automation",
+    "spa"
+  ],
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -13,7 +27,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "echo 'Deploy to Netlify via Git push or Netlify CLI'"
   },
   "eslintConfig": {
     "extends": [

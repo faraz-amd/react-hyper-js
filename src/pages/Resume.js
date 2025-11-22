@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { siteConfig } from '../constants/siteConfig';
 
 function Resume() {
   const timelineRef = useRef(null);
@@ -31,8 +32,8 @@ function Resume() {
     <main className="resume-page">
       <div className="resume-wrapper" role="main">
         <section className="name">
-          <h1>Ahmad Faraz</h1>
-          <h2>Senior Test Engineer</h2>
+          <h1>{siteConfig.name}</h1>
+          <h2>{siteConfig.title}</h2>
         </section>
         <section>
           <h2>About Me</h2>
@@ -139,22 +140,22 @@ function Resume() {
           <div className="timeline condensed">
             <span className="line"></span>
             <div className="timeline-item">
-              <p>faraz.ahmad@live.in</p>
+              <p>{siteConfig.email}</p>
             </div>
             <div className="timeline-item">
-              <p>Greater Noida, India</p>
+              <p>{siteConfig.location}</p>
             </div>
             <div className="timeline-item">
-              <p>+91 7007 9666 87</p>
+              <p>{siteConfig.phone}</p>
             </div>
             <div className="timeline-item">
               <p>
                 <a
-                  href="https://cloakedsec.netlify.com"
+                  href={siteConfig.website}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  https://cloakedsec.netlify.com
+                  {siteConfig.website}
                 </a>
               </p>
             </div>

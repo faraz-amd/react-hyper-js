@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { scrollToSection } from '../utils/scrollUtils';
 
 function Components() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -16,16 +17,9 @@ function Components() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const scrollToSection = (e, sectionId) => {
+  const handleScrollToSection = (e, sectionId) => {
     e.preventDefault();
-    const element = document.querySelector(sectionId);
-    if (element) {
-      const targetPosition = element.offsetTop - 20;
-      window.scrollTo({
-        top: targetPosition,
-        behavior: 'smooth',
-      });
-    }
+    scrollToSection(sectionId, 20);
   };
 
   const handleInlineFormSubmit = (e) => {
@@ -67,19 +61,19 @@ function Components() {
           </div>
 
           <nav className="library-menu">
-            <a href="#cards" onClick={(e) => scrollToSection(e, '#cards')}>
+            <a href="#cards" onClick={(e) => handleScrollToSection(e, '#cards')}>
               Cards
             </a>
-            <a href="#buttons" onClick={(e) => scrollToSection(e, '#buttons')}>
+            <a href="#buttons" onClick={(e) => handleScrollToSection(e, '#buttons')}>
               Buttons
             </a>
-            <a href="#forms" onClick={(e) => scrollToSection(e, '#forms')}>
+            <a href="#forms" onClick={(e) => handleScrollToSection(e, '#forms')}>
               Inputs
             </a>
-            <a href="#text" onClick={(e) => scrollToSection(e, '#text')}>
+            <a href="#text" onClick={(e) => handleScrollToSection(e, '#text')}>
               Typography
             </a>
-            <a href="#widgets" onClick={(e) => scrollToSection(e, '#widgets')}>
+            <a href="#widgets" onClick={(e) => handleScrollToSection(e, '#widgets')}>
               Widgets
             </a>
           </nav>

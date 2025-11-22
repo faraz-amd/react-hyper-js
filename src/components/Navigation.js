@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useDarkMode } from '../hooks/useDarkMode';
+import { handleHashNavigation, scrollToSection } from '../utils/scrollUtils';
 
 function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -28,20 +29,7 @@ function Navigation() {
   const handleHashLink = (e, sectionId) => {
     e.preventDefault();
     closeMenu();
-    if (location.pathname !== '/') {
-      // Navigate to home first, then scroll after a brief delay
-      window.location.href = `/${sectionId}`;
-    } else {
-      // Already on home page, just scroll
-      const element = document.querySelector(sectionId);
-      if (element) {
-        const navHeight = document.querySelector('.nav')?.offsetHeight || 0;
-        window.scrollTo({
-          top: element.offsetTop - navHeight - 20,
-          behavior: 'smooth',
-        });
-      }
-    }
+    handleHashNavigation(location.pathname, sectionId);
   };
 
   return (

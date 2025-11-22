@@ -1,5 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { experienceData } from '../constants/experienceData';
+import { siteConfig } from '../constants/siteConfig';
+import { scrollToSection } from '../utils/scrollUtils';
+import { validateContactForm, copyToClipboard } from '../utils/formUtils';
 
 function Home() {
   const [expandedCards, setExpandedCards] = useState({});
@@ -12,54 +16,6 @@ function Home() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [copied, setCopied] = useState(false);
   const revealRefs = useRef([]);
-
-  const experienceData = [
-    {
-      id: 1,
-      title: 'Senior Test Engineer',
-      company: 'Coforge Limited',
-      period: '2022 – 2023',
-      description:
-        'Developed robust automation scripts for regression testing, reducing manual testing efforts by 70% and enabling faster release cycles.',
-      details: [
-        'Led automation framework development using Selenium and Java',
-        'Implemented CI/CD pipelines reducing deployment time by 40%',
-        'Mentored junior engineers on best practices for test automation',
-        'Created reusable test utilities increasing code reusability by 60%',
-      ],
-      tags: ['Automation', 'CI/CD', 'Regression Testing'],
-    },
-    {
-      id: 2,
-      title: 'Software Engineer',
-      company: 'KGS Advisors LLP',
-      period: '2021 – Present',
-      description:
-        'Led a team in developing automated testing frameworks, resulting in 40% increase in testing efficiency and 50% increase in test coverage.',
-      details: [
-        'Architected end-to-end testing framework supporting multiple projects',
-        'Established testing standards and guidelines for the engineering team',
-        'Integrated API testing with RestAssured, improving coverage by 50%',
-        'Collaborated with DevOps to streamline CI/CD processes',
-      ],
-      tags: ['Team Leadership', 'Framework Development', 'Quality Assurance'],
-    },
-    {
-      id: 3,
-      title: 'Test Engineer',
-      company: 'Radoratory Technologies',
-      period: '2019 – 2021',
-      description:
-        'Designed and implemented scalable code for web applications, leading to 20% increase in user engagement within the first month.',
-      details: [
-        'Developed comprehensive test suites for web applications',
-        'Optimized test execution time by implementing parallel test runs',
-        'Created test documentation and training materials for the team',
-        'Identified and resolved critical bugs before production releases',
-      ],
-      tags: ['Web Development', 'Test Design', 'Performance'],
-    },
-  ];
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia(
@@ -100,13 +56,10 @@ function Home() {
   };
 
   const handleCopyEmail = async () => {
-    const email = 'faraz.ahmad@live.in';
-    try {
-      await navigator.clipboard.writeText(email);
+    const success = await copyToClipboard(siteConfig.email);
+    if (success) {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.error('Failed to copy:', err);
     }
   };
 
@@ -122,14 +75,7 @@ function Home() {
     e.preventDefault();
     setFormMessage({ text: '', type: '' });
 
-    const errors = [];
-    if (!formData.name.trim()) errors.push('Name is required');
-    if (!formData.email.trim()) {
-      errors.push('Email is required');
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      errors.push('Please enter a valid email address');
-    }
-    if (!formData.message.trim()) errors.push('Message is required');
+    const errors = validateContactForm(formData);
 
     if (errors.length > 0) {
       setFormMessage({ text: errors.join('. '), type: 'error' });
@@ -149,17 +95,9 @@ function Home() {
     }, 1500);
   };
 
-  const scrollToSection = (e, sectionId) => {
+  const handleScrollToSection = (e, sectionId) => {
     e.preventDefault();
-    const element = document.querySelector(sectionId);
-    if (element) {
-      const navHeight = document.querySelector('.nav')?.offsetHeight || 0;
-      const targetPosition = element.offsetTop - navHeight - 20;
-      window.scrollTo({
-        top: targetPosition,
-        behavior: 'smooth',
-      });
-    }
+    scrollToSection(sectionId);
   };
 
   return (
@@ -192,15 +130,21 @@ function Home() {
           </p>
           <div className="hero-stats">
             <div className="stat-item">
-              <div className="stat-number">4+</div>
+              <div className="stat-number">
+                {siteConfig.stats.yearsExperience}
+              </div>
               <div className="stat-label">Years Experience</div>
             </div>
             <div className="stat-item">
-              <div className="stat-number">70%</div>
+              <div className="stat-number">
+                {siteConfig.stats.testingEfficiencyGain}
+              </div>
               <div className="stat-label">Testing Efficiency Gain</div>
             </div>
             <div className="stat-item">
-              <div className="stat-number">50%</div>
+              <div className="stat-number">
+                {siteConfig.stats.testCoverageIncrease}
+              </div>
               <div className="stat-label">Test Coverage Increase</div>
             </div>
           </div>
