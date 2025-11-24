@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { experienceData } from '../constants/experienceData';
 import { siteConfig } from '../constants/siteConfig';
-import { scrollToSection } from '../utils/scrollUtils';
 import { validateContactForm, copyToClipboard } from '../utils/formUtils';
 
 function Home() {
