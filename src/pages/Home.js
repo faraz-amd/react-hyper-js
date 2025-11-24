@@ -82,16 +82,62 @@ function Home() {
     }
 
     setIsSubmitting(true);
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setFormMessage({
-        text: "Thank you! Your message has been sent. I'll get back to you soon.",
-        type: 'success',
+
+    try {
+      // Method 1: Netlify Forms (Primary - works automatically on Netlify)
+      const netlifyFormData = new FormData();
+      netlifyFormData.append('form-name', 'contact');
+      netlifyFormData.append('name', formData.name);
+      netlifyFormData.append('email', formData.email);
+      netlifyFormData.append('message', formData.message);
+
+      const netlifyResponse = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(netlifyFormData).toString(),
       });
-      setFormData({ name: '', email: '', message: '' });
-      setTimeout(() => setFormMessage({ text: '', type: '' }), 5000);
-    }, 1500);
+
+      if (netlifyResponse.ok) {
+        setFormMessage({
+          text: "Thank you! Your message has been sent via Netlify. I'll get back to you soon.",
+          type: 'success',
+        });
+        setFormData({ name: '', email: '', message: '' });
+        setTimeout(() => setFormMessage({ text: '', type: '' }), 5000);
+        return;
+      }
+
+      // Method 2: EmailJS (Fallback)
+      // Uncomment and add your EmailJS credentials when ready
+      // const emailJSResponse = await window.emailjs.send(
+      //   'YOUR_SERVICE_ID',
+      //   'YOUR_TEMPLATE_ID',
+      //   {
+      //     from_name: formData.name,
+      //     from_email: formData.email,
+      //     message: formData.message,
+      //   },
+      //   'YOUR_PUBLIC_KEY'
+      // );
+
+      // Method 3: Formspree (Alternative)
+      // Uncomment and add your Formspree endpoint when ready
+      // const formspreeResponse = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify(formData),
+      // });
+
+      throw new Error('Primary form submission failed');
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setFormMessage({
+        text: 'There was an error sending your message. Please try emailing directly.',
+        type: 'error',
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -369,7 +415,17 @@ function Home() {
               </button>
             </div>
             <div className="contact-form-wrapper">
-              <form className="contact-form" onSubmit={handleSubmit} noValidate>
+              <form
+                className="contact-form"
+                onSubmit={handleSubmit}
+                noValidate
+                name="contact"
+                method="POST"
+                data-netlify="true"
+                data-netlify-honeypot="bot-field"
+              >
+                <input type="hidden" name="form-name" value="contact" />
+                <input type="hidden" name="bot-field" />
                 <div className="form-group">
                   <label htmlFor="contact-name">Name</label>
                   <input

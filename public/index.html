@@ -45,9 +45,22 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"
     />
+    <!-- EmailJS SDK (Method 2 - uncomment when ready to use) -->
+    <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script> -->
+    <!-- <script type="text/javascript">
+      (function(){
+        emailjs.init('YOUR_PUBLIC_KEY');
+      })();
+    </script> -->
     <title>Ahmad Faraz - Automation & Software Engineering</title>
   </head>
   <body>
+    <!-- Netlify Forms - Static HTML form for detection -->
+    <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <textarea name="message"></textarea>
+    </form>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
   </body>
