@@ -29,7 +29,11 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "echo 'Deploy to Netlify via Git push or Netlify CLI'"
+    "deploy": "echo 'Deploy to Netlify via Git push or Netlify CLI'",
+    "lint": "eslint src --ext .js,.jsx --max-warnings=0"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0"
   },
   "eslintConfig": {
     "extends": [
@@ -49,4 +53,3 @@
     ]
   }
 }
-
