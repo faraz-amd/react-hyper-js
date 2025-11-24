@@ -127,9 +127,9 @@ function Components() {
                 </p>
                 <div className="component-actions">
                   <button className="btn btn-primary">View Report</button>
-                  <a href="#" className="text-link">
+                  <button type="button" className="text-link">
                     Schedule rerun
-                  </a>
+                  </button>
                 </div>
               </article>
 
@@ -271,7 +271,7 @@ function Components() {
                     owners.
                   </li>
                   <li>
-                    • <a href="#">Hyperlinks</a> direct readers to deeper
+                    • <a href="https://example.com">Hyperlinks</a> direct readers to deeper
                     context.
                   </li>
                 </ul>

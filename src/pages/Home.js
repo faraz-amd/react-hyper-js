@@ -95,11 +95,6 @@ function Home() {
     }, 1500);
   };
 
-  const handleScrollToSection = (e, sectionId) => {
-    e.preventDefault();
-    scrollToSection(sectionId);
-  };
-
   return (
     <main id="main-content" className="landing-page">
       {/* Hero Section */}

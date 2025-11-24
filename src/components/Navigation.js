@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useDarkMode } from '../hooks/useDarkMode';
-import { handleHashNavigation, scrollToSection } from '../utils/scrollUtils';
+import { handleHashNavigation } from '../utils/scrollUtils';
 
 function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
